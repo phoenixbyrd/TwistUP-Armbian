@@ -244,7 +244,9 @@ if [ ! -f "${DIRECTORY}/no-update-patcher" ];then
   if [ "$localhash" != "$latesthash" ] && [ ! -z "$latesthash" ] && [ ! -z "$localhash" ];then
     echo "TwistUP-Armbian is out of date. Downloading new version..."
     gio trash "$DIRECTORY"
+    cd "$HOME"
     git clone https://github.com/phoenixbyrd/TwistUP-Armbian "$DIRECTORY"
+    cd "$DIRECTORY"
   fi
 fi
 
