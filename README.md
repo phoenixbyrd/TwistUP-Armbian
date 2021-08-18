@@ -1,16 +1,15 @@
 # TwistUP
-## The new, simple Twister OS patcher
-AKA TwisterOS Patcher 2.0!
+## The new, simple Twister OS Armbian patcher
 ![](https://media.discordapp.net/attachments/738534235194916884/759921733825462322/TwisterOSPatcherLogo.png?width=960&height=186)  
 
 ## To download to ~/TwistUP 
 ```
-git clone https://github.com/phoenixbyrd/TwistUP-Armbian.git
+git clone https://github.com/phoenixbyrd/TwistUP-Armbian
 ```
 ## To download to ~/patcher
 ```
 gio trash ~/patcher
-git clone https://github.com/phoenixbyrd/TwistUP-Armbian.git patcher
+git clone https://github.com/phoenixbyrd/TwistUP-Armbian patcher
 ```
 ## Enter directory:
 ```
