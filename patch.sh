@@ -10,6 +10,9 @@
 
 #twistver format: "Twister OS version 1.8.5"
 
+#pull updates.
+git pull
+
 DIRECTORY="$(dirname "$(readlink -f "$0")")"
 echo "$DIRECTORY"
 function error {
@@ -24,7 +27,7 @@ getchangelog() {
   #downloads the changelog for a specified patch.
   #usage: getchangelog 1.9.1
   #outputs the full changelog in plain-text
-  messagetxt="$(wget -qO- https://twisteros.com/Patches/messageArmbian.txt)"
+  messagetxt="$(wget -qO- https://twisteros.com/Patches/TwisterArmbian/messageArmbian.txt)"
   changelog="$(echo "$messagetxt" | sed -e "0,/Version $1 patch notes:/d" | sed -e "/patch notes:/q" | head -n -2)"
   firstline="$(echo "$messagetxt" | grep "Version $1 patch notes:")"
   echo -e "${firstline}\n${changelog}"
@@ -44,7 +47,7 @@ patch2url() {
   #get URL to download, when given a patch number
   #usage: patch2url 1.9.1
   #outputs the full URL to the patch
-  URL="$(wget -qO- https://twisteros.com/Patches/URLsArmbian | grep "$1" | awk '{print $2}')"
+  URL="$(wget -qO- https://twisteros.com/Patches/TwisterArmbian/URLsArmbian | grep "$1" | awk '{print $2}')"
   if [ $? != 0 ] || [ -z "$URL" ];then
     error "Failed to determine URL for patch ${1}!"
   fi
@@ -212,7 +215,7 @@ fi
 localversion="$(twistver | awk 'NF>1{print $NF}')"
 echo "current version: $localversion"
 
-patchlist="$(wget -qO- https://twisteros.com/Patches/URLsArmbian)"
+patchlist="$(wget -qO- https://twisteros.com/Patches/TwisterArmbian/URLsArmbian)"
 if [ $? != 0 ] || [ -z "$patchlist" ];then
   error "Failed to download the patch list! Are you connected to the Internet?"
 fi
@@ -241,7 +244,9 @@ if [ ! -f "${DIRECTORY}/no-update-patcher" ];then
   if [ "$localhash" != "$latesthash" ] && [ ! -z "$latesthash" ] && [ ! -z "$localhash" ];then
     echo "TwistUP-Armbian is out of date. Downloading new version..."
     gio trash "$DIRECTORY"
+    cd "$HOME"
     git clone https://github.com/phoenixbyrd/TwistUP-Armbian "$DIRECTORY"
+    cd "$DIRECTORY"
   fi
 fi
 
